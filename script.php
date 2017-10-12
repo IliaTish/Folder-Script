@@ -1,7 +1,7 @@
 <?php
 	declare(strict_types=1);
 	
-	const default_margin = 25;
+	const DEFAULT_MARGIN = 25;
 
 	function isCli(): bool {
 		return defined('STDIN') || (substr(PHP_SAPI, 0, 3) == 'cgi' && getenv('TERM'));
@@ -19,7 +19,7 @@
 	}
 
 	function printDirectoryToBrowser(string $directory,int $space = 0): void{
-		$margin = default_margin*$space;
+		$margin = DEFAULT_MARGIN*$space;
 		echo "<p style=\"margin-left: ".$margin."px\">".$directory."</p>";
 	}
 
