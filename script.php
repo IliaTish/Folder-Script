@@ -32,17 +32,17 @@
 		}
 	}
 
-	function scanDirectories(string $currentDir,int $space = 1): void {
-		$folder_array = scandir($currentDir);
+	function scanDirectories(string $current_dir,int $space = 1): void {
+		$folder_array = scandir($current_dir);
 		foreach ($folder_array as $key => $folder) {
 			if(!isDot($folder)){
-				$newDir = $currentDir."/".$folder;
-				if(is_dir($newDir) && !is_link($newDir)){
-					printDirectory($newDir,$space);
-					scanDirectories($newDir,$space+1);
+				$new_dir = $current_dir."/".$folder;
+				if(is_dir($new_dir) && !is_link($new_dir)){
+					printDirectory($new_dir,$space);
+					scanDirectories($new_dir,$space+1);
 				}
 				else{
-					printDirectory($newDir,$space);
+					printDirectory($new_dir,$space);
 				}
 			}
 		}
