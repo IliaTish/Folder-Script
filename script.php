@@ -16,8 +16,8 @@
 		echo "<p style=\"margin-left: ".$margin."px\">".$directory."</p>";
 	}
 
-	function printDirectory(string $directory, int $space = 0): void {
-		if (isCli()) {
+	function printDirectory(string $directory, bool $cli = true, int $space = 0): void {
+		if ($cli) {
 			printToConsole($directory, $space);
 		}
 		else {
@@ -25,19 +25,20 @@
 		}
 	}
 
-	function scanDirectories(string $current_dir, int $space = 1): void {
+	function scanDirectories(string $current_dir, bool $cli = true, int $space = 1): void {
 		$folder_array = array_diff(scandir($current_dir),array(".",".."));
 		foreach ($folder_array as $key => $folder) {
 			$new_dir = $current_dir."/".$folder;
 			if (is_dir($new_dir) && !is_link($new_dir)) {
-				printDirectory($new_dir, $space);
-				scanDirectories($new_dir, $space+1);
+				printDirectory($new_dir, $cli, $space);
+				scanDirectories($new_dir, $cli, $space+1);
 			}
 			else {
-				printDirectory($new_dir, $space);
+				printDirectory($new_dir, $cli, $space);
 			}
 		}
 	}
 
-	printDirectory(__DIR__);
-	scanDirectories(__DIR__);
+	$cli = isCli();
+	printDirectory(__DIR__,$cli);
+	scanDirectories(__DIR__, $cli);
