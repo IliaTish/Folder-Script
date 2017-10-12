@@ -8,41 +8,41 @@
 	}
 
 	function isDot(string $folder): bool {
-		if($folder === "." || $folder === ".."){
+		if ($folder === "." || $folder === "..") {
 			return true;
 		}
 		return false;
 	}
 
-	function printDirectoryToConsole(string $directory,int $space = 0): void {
-		echo str_repeat("\t",$space).$directory."\n";
+	function printToConsole(string $directory, int $space = 0): void {
+		echo str_repeat("\t", $space).$directory."\n";
 	}
 
-	function printDirectoryToBrowser(string $directory,int $space = 0): void{
-		$margin = DEFAULT_MARGIN*$space;
+	function printToBrowser(string $directory, int $space = 0): void {
+		$margin = DEFAULT_MARGIN * $space;
 		echo "<p style=\"margin-left: ".$margin."px\">".$directory."</p>";
 	}
 
-	function printDirectory(string $directory,int $space = 0): void {
-		if(isCli()){
-			printDirectoryToConsole($directory,$space);
+	function printDirectory(string $directory, int $space = 0): void {
+		if (isCli()) {
+			printToConsole($directory, $space);
 		}
-		else{
-			printDirectoryToBrowser($directory,$space);
+		else {
+			printToBrowser($directory, $space);
 		}
 	}
 
-	function scanDirectories(string $current_dir,int $space = 1): void {
+	function scanDirectories(string $current_dir, int $space = 1): void {
 		$folder_array = scandir($current_dir);
 		foreach ($folder_array as $key => $folder) {
-			if(!isDot($folder)){
+			if (!isDot($folder)) {
 				$new_dir = $current_dir."/".$folder;
-				if(is_dir($new_dir) && !is_link($new_dir)){
-					printDirectory($new_dir,$space);
-					scanDirectories($new_dir,$space+1);
+				if (is_dir($new_dir) && !is_link($new_dir)) {
+					printDirectory($new_dir, $space);
+					scanDirectories($new_dir, $space+1);
 				}
-				else{
-					printDirectory($new_dir,$space);
+				else {
+					printDirectory($new_dir, $space);
 				}
 			}
 		}
