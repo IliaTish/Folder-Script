@@ -29,7 +29,7 @@
 		$folder_array = array_diff(scandir($current_dir),array(".",".."));
 		foreach ($folder_array as $key => $folder) {
 			$new_dir = $current_dir.DIRECTORY_SEPARATOR.$folder;
-			if (is_dir($new_dir) && !is_link($new_dir)) {
+			if (is_dir($new_dir) && !is_link($new_dir) && is_readable($new_dir)) {
 				printDirectory($new_dir, $cli, $space);
 				scanDirectories($new_dir, $cli, $space+1);
 			}
